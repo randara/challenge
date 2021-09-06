@@ -124,19 +124,19 @@ RSpec.describe User, type: :model do
 
     it 'should show 1 change message' do
       @user.password = "AAAfk1swods"
-      @user.save
+      @user.validate
       expect(@user.persisting_result).to eq "Change 1 character of #{@user.name}'s password"
     end
 
     it 'should show 4 changes message' do
       @user.password = "Abc123"
-      @user.save
+      @user.validate
       expect(@user.persisting_result).to eq "Change 4 characters of #{@user.name}'s password"
     end
 
     it 'should show 5 changes message' do
       @user.password = "000aaaBBBccccDDD"
-      @user.save
+      @user.validate
       expect(@user.persisting_result).to eq "Change 5 characters of #{@user.name}'s password"
     end
   end
