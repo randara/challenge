@@ -74,10 +74,10 @@ RSpec.describe User, type: :model do
       expect(@user.errors.size).to eq 1
     end
 
-    it 'should have 1 error "Abc123"' do
+    it 'should have 4 error "Abc123"' do
       @user.password = 'Abc123'
       @user.valid?
-      expect(@user.errors.size).to eq 1
+      expect(@user.errors.size).to eq 4
     end
 
     it 'should have 5 errors "000aaaBBBccccDDD"' do
@@ -138,6 +138,36 @@ RSpec.describe User, type: :model do
         @user.password = "123abcABC"
         expect(@user.send(:no_three_repeating_characters_in_a_row_in_password)).to be_nil
       end
+    end
+  end
+
+  describe '#persist_result' do
+    before(:each) do
+      @user = User.new(name: 'username')
+    end
+
+    it 'should show success message' do
+      @user.password = "QPFJWz1343439"
+      @user.save
+      expect(@user.persist_result).to eq "#{@user.name} was successfully saved"
+    end
+
+    it 'should show 1 change message' do
+      @user.password = "AAAfk1swods"
+      @user.save
+      expect(@user.persist_result).to eq "Change 1 character of #{@user.name}'s password"
+    end
+
+    it 'should show 4 changes message' do
+      @user.password = "Abc123"
+      @user.save
+      expect(@user.persist_result).to eq "Change 4 characters of #{@user.name}'s password"
+    end
+
+    it 'should show 5 changes message' do
+      @user.password = "000aaaBBBccccDDD"
+      @user.save
+      expect(@user.persist_result).to eq "Change 5 characters of #{@user.name}'s password"
     end
   end
 end

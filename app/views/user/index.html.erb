@@ -1,0 +1,7 @@
+<h1>User#index</h1>
+
+<%= form_tag({:action => :upload}, :multipart => true) do %>
+  <%= file_field_tag 'users' %>
+  <br/>
+  <%= submit_tag("Upload") %>
+<% end %>
