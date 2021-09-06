@@ -57,36 +57,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'errors size' do
-    before(:each) do
-      @user = User.new(name: 'username')
-    end
-
-    it 'should not have any errors for "QPFJWz1343439"' do
-      @user.password = 'QPFJWz1343439'
-      @user.valid?
-      expect(@user.errors).to be_empty
-    end
-
-    it 'should have 1 error for "AAAfk1swods"' do
-      @user.password = 'AAAfk1swods'
-      @user.valid?
-      expect(@user.errors.size).to eq 1
-    end
-
-    it 'should have 4 error "Abc123"' do
-      @user.password = 'Abc123'
-      @user.valid?
-      expect(@user.errors.size).to eq 4
-    end
-
-    it 'should have 5 errors "000aaaBBBccccDDD"' do
-      @user.password = '000aaaBBBccccDDD'
-      @user.valid?
-      expect(@user.errors.size).to eq 5
-    end
-  end
-
   describe 'custom validation methods' do
     before(:each) do
       @user = User.new(name: 'username')
@@ -141,7 +111,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#persist_result' do
+  describe '#persisting_result' do
     before(:each) do
       @user = User.new(name: 'username')
     end
@@ -149,25 +119,25 @@ RSpec.describe User, type: :model do
     it 'should show success message' do
       @user.password = "QPFJWz1343439"
       @user.save
-      expect(@user.persist_result).to eq "#{@user.name} was successfully saved"
+      expect(@user.persisting_result).to eq "#{@user.name} was successfully saved"
     end
 
     it 'should show 1 change message' do
       @user.password = "AAAfk1swods"
       @user.save
-      expect(@user.persist_result).to eq "Change 1 character of #{@user.name}'s password"
+      expect(@user.persisting_result).to eq "Change 1 character of #{@user.name}'s password"
     end
 
     it 'should show 4 changes message' do
       @user.password = "Abc123"
       @user.save
-      expect(@user.persist_result).to eq "Change 4 characters of #{@user.name}'s password"
+      expect(@user.persisting_result).to eq "Change 4 characters of #{@user.name}'s password"
     end
 
     it 'should show 5 changes message' do
       @user.password = "000aaaBBBccccDDD"
       @user.save
-      expect(@user.persist_result).to eq "Change 5 characters of #{@user.name}'s password"
+      expect(@user.persisting_result).to eq "Change 5 characters of #{@user.name}'s password"
     end
   end
 end

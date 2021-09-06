@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validate :at_least_one_digit_in_password
   validate :no_three_repeating_characters_in_a_row_in_password
 
-  def persist_result
+  def persisting_result
     if persisted?
       "#{name} was successfully saved"
     else
